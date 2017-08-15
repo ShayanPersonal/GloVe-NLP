@@ -1,6 +1,5 @@
 #!/usr/bin/env python
 import numpy as np
-import matplotlib.pyplot as plt
 import pickle
 import time
 
@@ -88,20 +87,7 @@ class Glove():
     def get(self, words):
         return dict([(word, self.vector_table_center[self.get_id(word)] + self.vector_table_context[self.get_id(word)]) for word in words if word in self.vocab])
 
-
 def run(input_file, vocab_file, output_file):
-    '''Runs model on the given datasets, generates the output, and saves them into the provided file path
-	
-	Parameters
-	----------
-	input_file: string
-		the path to the zipped text file
-        vocab_file: string
-                the path to the vocabulary text file
-	output_file: string
-		the output word embeddings to be saved
-	'''
-
     vec_size=300
     window_size=8
     epochs=15
@@ -115,7 +101,6 @@ def run(input_file, vocab_file, output_file):
     with open(output_file, 'w') as output_file:
         for word, vec in vecs.items():
             print(word + ' ' + ' '.join(str("%.3f" % x) for x in vec), file=output_file)
-
 
 if __name__ == "__main__":
     run('train.txt', 'test.txt', 'vectors.txt')
